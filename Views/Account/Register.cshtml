@@ -1,0 +1,44 @@
+﻿@model Store.ViewModels.RegisterViewModel
+    <head>
+        <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    </head>
+<h2 class="text-center">New user registration</h2>
+<div class="container">
+    <div class="row justify-content-center align-items-center text-center">
+        <form class="col-4" method="post" asp-controller="Account" asp-action="Register">
+            <div class="text-danger" asp-validation-summary="All"></div>
+            <div>
+                <input class="form-control" asp-for="Email" placeholder="Email" />
+            </div>
+            <br />
+            <div>
+                <input class="form-control" asp-for="UserName" placeholder="User name" />
+            </div>
+            <br />
+            <p>Date Of Birth</p>
+            <div class="form-inline">
+                @Html.DropDownList("dayOfBirth", new SelectList(Enumerable.Range(1, 32)), null, new { @class = "form-control col-sm-3" })
+                @Html.DropDownList("monthOfBirth", new SelectList(ViewBag.month), null, new { @class = "form-control col-sm-5" })
+                @Html.DropDownList("yearOfBirth", new SelectList(Enumerable.Range(1900, DateTime.Now.Year - 1899)).Reverse(), null, new { @class = "form-control col-sm-4" })
+            </div>
+            <br />
+            <div>
+                <input class="form-control" asp-for="Password" placeholder="Password" />
+            </div>
+            <br />
+            <div>
+                <input class="form-control" asp-for="PasswordConfirm" placeholder="Password Confirm" />
+            </div>
+            <br />
+            <div>
+                <input class="btn btn-primary" type="submit" value="Registration" />
+            </div>
+        </form>
+    </div>
+</div>
+<style>
+    .form-group {
+        margin-top: 3%;
+    }
+</style>

@@ -1,0 +1,40 @@
+﻿@model Store.ViewModels.LoginViewModel
+
+<h2 class="text-center">Login to the application</h2>
+
+<div class="container">
+    <div class="row justify-content-center align-items-center text-center">
+        <form class="form-group" method="post" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl">
+
+            <div asp-validation-summary="ModelOnly"></div>
+            <div>
+                <input class="form-control" asp-for="UserName" placeholder="Email" />
+                <span asp-validation-for="UserName"></span>
+            </div>
+            <br />
+            <div>
+                <input class="form-control" asp-for="Password" placeholder="Password" />
+                <span asp-validation-for="Password"></span>
+            </div>
+            <br />
+            <div class="form-inline form-check">
+                <label id="RememberLabel" asp-for="RememberMe"></label>
+                <input type="checkbox" class="form-check-input" asp-for="RememberMe" />
+            </div>
+            <br />
+            <div>
+                <input class="btn btn-primary" type="submit" value="Войти" />
+            </div>
+
+        </form>
+    </div>
+</div>
+<p>@ViewBag.result</p>
+<style>
+    .form-group{
+        margin-top: 3% ;
+    }
+    #RememberLabel{
+        margin-right: 10px;
+    }
+</style>
