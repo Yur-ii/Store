@@ -77,16 +77,6 @@ namespace Store.Controllers
 
             return NotFound();
         }
-        public async Task<bool> FindAdmin(string userId)
-        {
-            User user = await _userManager.FindByIdAsync(userId);
-            if (user != null)
-            {
-                var userRoles = await _userManager.GetRolesAsync(user);
-                if (userRoles.Contains("Admin")) return true;
-            }
-            return false;
-        }
         [HttpPost]
         public async Task<IActionResult> Edit(string userId, List<string> roles)
         {
