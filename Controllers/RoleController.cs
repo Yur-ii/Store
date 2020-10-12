@@ -115,7 +115,6 @@ namespace Store.Controllers
                 await _userManager.RemoveFromRolesAsync(user, removedRoles);
                 return RedirectToAction("FindUser");
             }
-
             return NotFound();
         }
     }
