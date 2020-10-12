@@ -11,6 +11,6 @@ namespace Store.Models
     {
         [Required]
         public DateTime DateOfBirth { get; set; }
-        public string Image { get; set; }
+        public byte[] Image { get; set; }
     }
 }

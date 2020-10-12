@@ -1,0 +1,16 @@
+﻿@model Store.Models.User
+@if (Model.Image != null)
+{
+    <input type="image" data-toggle="dropdown" class="roundLoginImg" style='width:50px; height:50px;' src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Image))" />
+}
+else
+{
+    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        @User.Identity.Name
+    </a>
+}
+<style>
+    .roundLoginImg {
+        border-radius: 50px;
+    }
+</style>
