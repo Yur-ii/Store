@@ -56,7 +56,30 @@ namespace Store.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult UserList() => View(_userManager.Users.ToList());
+        public async Task<IActionResult> FindUser(string findUserOrRole, string userName = null) 
+        {
+            //if(userName != null) 
+            //{
+            //    return View(_userManager.Users.FirstOrDefault(u => u.UserName == userName));
+            //}   
+            //else return View(_userManager.Users.ToList());
+            FindUserOrRolesViewModel user = new FindUserOrRolesViewModel();
+            user.User = null;
+            user.Users = null;
+            if (userName != null && findUserOrRole == "User")
+            {
+                user.User = _userManager.Users.FirstOrDefault(u => u.UserName == userName);
+                user.Users = null;
+                return View(user);
+            }
+            else if(userName != null && findUserOrRole == "User who beloges to the role")
+            {
+                user.User = null;
+                user.Users = await _userManager.GetUsersInRoleAsync(userName);
+                return View(user);
+            }
+            else return View(user);
+        }
 
         public async Task<IActionResult> Edit(string userId)
         {
@@ -68,6 +91,7 @@ namespace Store.Controllers
                 ChangeRoleViewModel model = new ChangeRoleViewModel
                 {
                     UserId = user.Id,
+                    UserName = user.UserName,
                     UserEmail = user.Email,
                     UserRoles = userRoles,
                     AllRoles = allRoles
@@ -89,7 +113,7 @@ namespace Store.Controllers
                 var removedRoles = userRoles.Except(roles);
                 await _userManager.AddToRolesAsync(user, addedRoles);
                 await _userManager.RemoveFromRolesAsync(user, removedRoles);
-                return RedirectToAction("UserList");
+                return RedirectToAction("FindUser");
             }
 
             return NotFound();

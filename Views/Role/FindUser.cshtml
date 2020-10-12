@@ -1,0 +1,41 @@
+﻿@model Store.ViewModels.FindUserOrRolesViewModel
+
+<h2 class="text-center">List of users</h2>
+<br />
+<div class="row justify-content-center align-items-center text-center">
+    <form class="form-inline" method="get">
+        @Html.DropDownList("findUserOrRole", new SelectList(new string[] { "User", "User who beloges to the role" }), null, new { @class = "form-control" })
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" name="userName">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+</div>
+<br />
+<div class="row justify-content-center align-items-center text-center">
+    @if (Model.User != null)
+    {
+        <p id="userName">@Model.User.UserName</p>
+        <p>
+            <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-userid="@Model.User.Id">Access right</a>
+        </p>
+    }
+    else if (Model.Users != null)
+    {
+    <table class="col-2">
+        @foreach (var user in Model.Users)
+        {
+        <tr>
+            <td>@user.UserName</td>
+            <td>
+                <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-userid="@user.Id">Access right</a>
+            </td>
+        </tr>
+        }
+    </table>
+    }
+</div>
+
+<style>
+    #userName{
+        margin-right: 20px;
+    }
+</style>
