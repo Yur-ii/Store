@@ -10,6 +10,7 @@ namespace Store.Models
     public class StoreContext : IdentityDbContext<User>
     {
         public DbSet<Category> Categories { get; set; }
+        public DbSet<SubCategory> SubCategories { get; set; }
         public DbSet<Product> Products { get; set; }
         public StoreContext(DbContextOptions<StoreContext> options) : base(options)
         {

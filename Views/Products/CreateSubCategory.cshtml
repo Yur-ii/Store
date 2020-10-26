@@ -1,0 +1,17 @@
+﻿@model Store.Models.SubCategory
+<h3>Create category</h3>
+<div class="row justify-content-center align-items-center text-center">
+    <form id="formCategory" method="post" asp-action="CreateSubCategory" asp-controller="Products">
+        <div>
+            <input class="form-control" asp-for="SubCategoryName" placeholder="Category name" />
+        </div>
+        <br />
+        <div>
+            <input class="form-control" asp-for="Desc" placeholder="Description" />
+        </div>
+        <br />
+        <div>
+            <input class="btn btn-primary" type="submit" value="Create" />
+        </div>
+    </form>
+</div>

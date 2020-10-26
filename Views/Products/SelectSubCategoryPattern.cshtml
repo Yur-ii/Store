@@ -1,0 +1,106 @@
+﻿@model Dictionary<string, List<TwoParam>>
+@using Store.ViewModels
+@{
+    int countCategory = 0;
+    int countElement = 0;
+}
+<script src="@Url.Content("~/js/CharacteristicsTemplate.js")" type="text/javascript"></script>
+
+@if (Model != null)
+{
+    @foreach (var d in Model)
+    {
+        countElement = 0;
+        <div id="CatDiv[@countCategory]" class="form-inline">
+            <input id="[@countCategory]Cat" type="text" class="form-control" placeholder="Category" name="[@countCategory].Key" value="@d.Key" />
+            <input type="button" id="DelCategory[@countCategory]" onclick="DeleteCategory(this.id)" class="btn btn-danger" value="Delete" />
+        </div>
+        foreach (var val in d.Value)
+        {
+            <div id="CatDiv[@countCategory][@countElement]" class="form-inline">
+                <input id="[@countCategory].[@countElement]" type="text" class="form-control" placeholder="Category" name="[@countCategory].Value[@countElement].Name" value="@val.Name" style="margin-left: 30px" />
+                <input id="[@countCategory].[@countElement]" type="text" class="form-control" placeholder="Description" name="[@countCategory].Value[@countElement].Description" value="@val.Description" />
+                <input type="button" id="DelElement[@countCategory][@countElement]" onclick="DeleteElement(this.id)" class="btn btn-danger" value="Delete" />
+            </div>
+            countElement++;
+        }
+        countCategory++;
+    }
+}
+else
+{
+    <script>
+        var errCreate = document.createElement("p");
+        errCreate.setAttribute("id", "errCategory");
+        errCreate.innerHTML = String("@ViewBag.ErrorMessage");
+        errCreate.style.color = "red";
+        document.getElementById("Сharacteristic").appendChild(errCreate);
+    </script>
+
+}
+
+<style>
+    #btnCreate {
+        margin: 20px;
+    }
+
+    input {
+        margin-bottom: 15px;
+    }
+
+    .form-control {
+        color: black;
+    }
+
+    input[type="text"]::-webkit-input-placeholder {
+        color: lightgray;
+    }
+
+    input[type="text"]::-moz-placeholder {
+        color: lightgray;
+    }
+
+    button {
+        margin-bottom: 15px;
+    }
+
+    #ErrorMessage {
+        color: red;
+    }
+</style>
+<script>
+    var countCategory = @countCategory;
+    var countElementCharact = @countElement;
+    var checkEmpty = true;
+    var form = document.getElementsByTagName("form")[0];
+    form.addEventListener("submit", function (event) {
+        //check if categories not empty and not have same value, if not - prevent sumbit
+        if (countCategory > 0) {
+            for (let i = 0; i < countCategory; i++) {
+                if (document.getElementById(`[${i}]Cat`)) {
+                    let checkCat = document.forms["formCategory"][`[${i}]Cat`].value;
+                    console.log(checkCat + 123);
+                    if (checkCat == "") {
+                        event.preventDefault();
+                        let errorMes = document.getElementById("ErrorMessage");
+                        errorMes.innerHTML = "Category fields should not to be empty.";
+                    }
+                }
+                for (let j = 0; j < countCategory; j++) {
+                    if (i == j) continue;
+                    else {
+                        let checkCat = document.forms["formCategory"][`[${i}]Cat`].value;
+                        let compareCat = document.forms["formCategory"][`[${j}]Cat`].value;
+                        if (checkCat == compareCat) {
+                            let errorMes = document.getElementById("ErrorMessage");
+                            errorMes.innerHTML = "Category fields should not to be the same.";
+                            event.preventDefault();
+                        }
+                    }
+                }
+            }
+        }
+    }, false);
+</script>
+
+

@@ -10,7 +10,7 @@ using Store.ViewModels;
 
 namespace Store.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class RoleController : Controller
     {
         RoleManager<IdentityRole> _roleManager;
@@ -58,11 +58,6 @@ namespace Store.Controllers
 
         public async Task<IActionResult> FindUser(string findUserOrRole, string userName = null) 
         {
-            //if(userName != null) 
-            //{
-            //    return View(_userManager.Users.FirstOrDefault(u => u.UserName == userName));
-            //}   
-            //else return View(_userManager.Users.ToList());
             FindUserOrRolesViewModel user = new FindUserOrRolesViewModel();
             user.User = null;
             user.Users = null;

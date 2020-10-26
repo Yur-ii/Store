@@ -1,0 +1,74 @@
+﻿@model Store.Models.Product
+
+<script src="@Url.Content("~/js/CharacteristicsTemplate.js")" type="text/javascript"></script>
+<div class="justify-content-center align-items-center text-center">
+    <form id="formCategory" method="post"  asp-action="CreateProduct" asp-controller="Products" enctype="multipart/form-data">
+        <input name="Name" class="form-control" placeholder="Product name" />
+        <br />
+        <input name="Price" class="form-control" placeholder="Product price" />
+        <br />
+        <input name="uploadedFile" class="form-control" type="file" />
+        <br />
+        <input name="Avilable" class="form-control" placeholder="Product avilable" />
+        <br />
+        @Html.TextArea("Desc", null, 5, 50, new { placeholder = "Product description", @class = "form-control" })
+        <br />
+        <select asp-for="SubCategoryId" asp-items="ViewBag.subCategories" class="form-control"></select>
+        <br />
+        <h3>Сharacteristic of product</h3>
+        <div id="Сharacteristic">
+
+        </div>
+        <p id="ErrorMessage"></p>
+        <br />
+        <div>
+            <input class="btn btn-primary" type="submit" value="Save" />
+        </div>
+    </form>
+</div>
+
+<div class="row justify-content-center align-items-center text-center">
+    <button id="btnCreate" class="btn btn-primary col-2" onclick="CreateCategoryCharacteristic()">
+        Add category
+    </button>
+    <button id="btnCreate" class="btn btn-primary col-2" onclick="CreateSubcategorySettings(true)">
+        Add element
+    </button>
+    <form data-ajax="true"
+          data-ajax-method="POST"
+          data-ajax-mode="replace"
+          data-ajax-update="#Сharacteristic" asp-action="SelectSubCategoryPattern">
+        <select name="category" asp-items="ViewBag.subCategories"></select>
+        @await Html.PartialAsync("SelectSubCategoryPattern")
+        <input class="btn btn-primary" type="submit"  value="Display template" />
+    </form>
+</div>
+<style>
+    #btnCreate {
+        margin: 20px;
+    }
+
+    input {
+        margin-bottom: 15px;
+    }
+
+    .form-control {
+        color: black;
+    }
+
+    input[type="text"]::-webkit-input-placeholder {
+        color: lightgray;
+    }
+
+    input[type="text"]::-moz-placeholder {
+        color: lightgray;
+    }
+
+    button {
+        margin-bottom: 15px;
+    }
+
+    #ErrorMessage {
+        color: red;
+    }
+</style>

@@ -39,7 +39,7 @@ namespace Store.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Products");
                     }
                 }
                 else
@@ -64,7 +64,7 @@ namespace Store.Controllers
                 if (result.Succeeded)
                 {
                     await _signInManager.SignInAsync(user, false);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Products");
                 }
                 else
                 {
@@ -79,7 +79,7 @@ namespace Store.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Products");
         }
         [Authorize]
         public async Task<IActionResult> Settings()

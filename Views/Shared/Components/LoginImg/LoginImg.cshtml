@@ -1,7 +1,10 @@
 ﻿@model Store.Models.User
 @if (Model.Image != null)
 {
-    <input type="image" data-toggle="dropdown" class="roundLoginImg" style='width:50px; height:50px;' src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Image))" />
+    <div class="btn btn-light dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div class="float-left" id="UserNameNavbar">@User.Identity.Name</div>
+        <img   class="roundLoginImg" style='width:50px; height:50px;' src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Image))" />
+    </div>
 }
 else
 {
@@ -12,5 +15,10 @@ else
 <style>
     .roundLoginImg {
         border-radius: 50px;
+    }
+    #UserNameNavbar {
+        font: 1.2em "Fira Sans", sans-serif;
+        margin-top: 10%;
+        margin-right: 20px;
     }
 </style>

@@ -1,0 +1,126 @@
+﻿@model (Store.Models.Product, Dictionary<string, List<TwoParam>>)
+@using Store.ViewModels
+@{
+    int countCategory = 0;
+    int countElement = 0;
+    bool categoryDescription = true;
+}
+<script src="@Url.Content("~/js/CharacteristicsTemplate.js")" type="text/javascript"></script>
+<div class="row justify-content-center align-items-center text-center">
+    <form id="formCategory" method="post" asp-action="CreateCharasteristicOrChange" asp-controller="Products">
+        <h3>Сharacteristic of product</h3>
+        <input hidden value="@Model.Item1" />
+        <input name="Name" placeholder="Product name" class="form-control" value="@Model.Item1.Name"/>
+        <br />
+        <input name="Price" placeholder="Product price" class="form-control" value="@Model.Item1.Price"/>
+        <br />
+        <input name="uploadedFile" type="file" class="form-control" value="@Model.Item1.Img"/>
+        <br />
+        <input name="Avilable" placeholder="Product avilable" class="form-control col-6" value="@Model.Item1.Avilable"/>
+        <br />
+        @Html.TextArea("Desc", Model.Item1.Desc, 5, 50, new { placeholder = "Product description", @class = "form-control" })
+        <br />
+        <select asp-for="Item1.SubCategoryId" asp-items="ViewBag.subCategories" class="form-control"></select>
+        <br />
+        <div id="Сharacteristic">
+            @if (Model.Item2 != null)
+            {
+                @foreach (var d in Model.Item2)
+                {
+                    countElement = 0;
+                    <div id="CatDiv[@countCategory]" class="form-inline">
+                        <input id="[@countCategory]Cat" type="text" class="form-control" placeholder="Category" name="[@countCategory].Key" value="@d.Key" />
+                        <input type="button" id="DelCategory[@countCategory]" onclick="DeleteCategory(this.id)" class="btn btn-danger" value="Delete" />
+                    </div>
+                    foreach (var val in d.Value)
+                    {
+                        <div id="CatDiv[@countCategory][@countElement]" class="form-inline">
+                            <input id="[@countCategory].[@countElement]" type="text" class="form-control" placeholder="Element category" name="[@countCategory].Value[@countElement].Name" value="@val.Name" style="margin-left: 30px" />
+                            <input id="[@countCategory].[@countElement]" type="text" class="form-control" placeholder="Description" name="[@countCategory].Value[@countElement].Description" value="@val.Description" />
+                            <input type="button" id="DelElement[@countCategory][@countElement]" onclick="DeleteElement(this.id)" class="btn btn-danger" value="Delete" />
+                        </div>
+                        countElement++;
+                    }
+                    countCategory++;
+                }
+            }
+        </div>
+        <p id="ErrorMessage"></p>
+        <br />
+        <div>
+            <input class="btn btn-primary" type="submit" value="Save" />
+        </div>
+    </form>
+</div>
+<div class="row justify-content-center align-items-center text-center">
+    <button id="btnCreate" class="btn btn-primary col-2" onclick="CreateCategoryCharacteristic()">
+        Add category
+    </button>
+    <button id="btnCreate" class="btn btn-primary col-2" onclick="CreateSubcategorySettings(true)">
+        Add element
+    </button>
+</div>
+<style>
+    #btnCreate {
+        margin: 20px;
+    }
+
+    input {
+        margin-bottom: 15px;
+    }
+
+    .form-control {
+        color: black;
+    }
+
+    input[type="text"]::-webkit-input-placeholder {
+        color: lightgray;
+    }
+
+    input[type="text"]::-moz-placeholder {
+        color: lightgray;
+    }
+
+    button {
+        margin-bottom: 15px;
+    }
+
+    #ErrorMessage {
+        color: red;
+    }
+    
+</style>
+<script>
+    let countCategory = @countCategory;
+    let countElementCharact = @countElement;
+    let checkEmpty = true;
+    let form = document.getElementsByTagName("form")[0];
+    form.addEventListener("submit", function (event) {
+        //check if categories not empty and not have same value, if not - prevent sumbit
+        if (countCategory > 0) {
+            for (let i = 0; i < countCategory; i++) {
+                if (document.getElementById(`[${i}]Cat`)) {
+                    let checkCat = document.forms["formCategory"][`[${i}]Cat`].value;
+                    console.log(checkCat + 123);
+                    if (checkCat == "") {
+                        event.preventDefault();
+                        let errorMes = document.getElementById("ErrorMessage");
+                        errorMes.innerHTML = "Category fields should not to be empty.";
+                    }
+                }
+                for (let j = 0; j < countCategory; j++) {
+                    if (i == j) continue;
+                    else {
+                        let checkCat = document.forms["formCategory"][`[${i}]Cat`].value;
+                        let compareCat = document.forms["formCategory"][`[${j}]Cat`].value;
+                        if (checkCat == compareCat) {
+                            let errorMes = document.getElementById("ErrorMessage");
+                            errorMes.innerHTML = "Category fields should not to be the same.";
+                            event.preventDefault();
+                        }
+                    }
+                }
+            }
+        }
+    }, false);
+</script>
