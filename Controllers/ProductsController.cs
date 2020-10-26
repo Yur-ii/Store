@@ -67,6 +67,14 @@ namespace Store.Controllers
             };
             return View(products);
         }
+        public IActionResult CreateCategory() => View();
+        [HttpPost]
+        public async Task<IActionResult> CreateCategory(Category category)
+        {
+            db.Categories.Add(category);
+            await db.SaveChangesAsync();
+            return RedirectToAction("CategoryProperties");
+        }
         public IActionResult CreateSubCategory() => View();
         [HttpPost]
         public async Task<IActionResult> CreateSubCategory(SubCategory category)
