@@ -6,6 +6,8 @@
             <input class="form-control" asp-for="SubCategoryName" placeholder="Category name" />
         </div>
         <br />
+        <select asp-for="CategoryId" asp-items="ViewBag.categories" class="form-control"></select>
+        <br />
         <div>
             <input class="form-control" asp-for="Desc" placeholder="Description" />
         </div>
