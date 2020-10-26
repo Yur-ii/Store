@@ -75,7 +75,12 @@ namespace Store.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("CategoryProperties");
         }
-        public IActionResult CreateSubCategory() => View();
+        public IActionResult CreateSubCategory() 
+        {
+            List<Category> categories = db.Categories.ToList();
+            ViewBag.categories = new SelectList(categories, "Id", "CategoryName");
+            return View(); 
+        }
         [HttpPost]
         public async Task<IActionResult> CreateSubCategory(SubCategory category)
         {
