@@ -11,6 +11,7 @@ namespace Store.Models
         public string SubCategoryName { get; set; }
         public string PatternСharacteristics { get; set; }
         public string Desc { get; set; }
+        public int CategoryId { get; set; }
         public List<Product> Products { get; set; }
     }
 }
