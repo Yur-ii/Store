@@ -17,7 +17,7 @@ namespace Store.Components
         }
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            User user = await _userManager.FindByNameAsync(User.Identity.Name) ?? null;
+            User user = await _userManager.FindByNameAsync(User.Identity.Name);
             return View("LoginImg",user);
         }
     }
