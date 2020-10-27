@@ -19,40 +19,41 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">Home</a>
-                        </li>
-                    </ul>
-                </div>
-                @* @if (User.IsInRole("Admin"))
-                    {*@
-                <a class="navbar-brand" asp-controller="Role" asp-action="Index">Roles</a>
-                @*}*@
-                <div class="float-right">
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <div class="dropdown">
-                            @await Component.InvokeAsync("LoginImg")
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                                @* @if (User.IsInRole("Admin"))
-        {*@
-                                @Html.ActionLink("Category propeties", "CategoryProperties", "Products", null, new { @class = "dropdown-item" })
-                                @Html.ActionLink("Product propeties", "ProductsProperties", "Products", null, new { @class = "dropdown-item" })
-                                @*}*@
-                                @Html.ActionLink("Settings", "Settings", "Account", null, new { @class = "dropdown-item" })
-                                @Html.ActionLink("Logout", "Logout", "Account", null, new { @class = "dropdown-item" })
-                            </div>
+                <div class="dropdown float-left">
+                    <div class="btn btn-light dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Catalog
+                       </div>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            @await Component.InvokeAsync("Catalog")
                         </div>
-                    }
-                    else
-                    {
-                        <a class="navbar-brand" asp-controller="Account" asp-action="Login">Login</a>
-                        <a class="navbar-brand" asp-controller="Account" asp-action="Register">Registration</a>
-                    }
+                    </div>
+                    @* @if (User.IsInRole("Admin"))
+        {*@
+                    <a class="navbar-brand" asp-controller="Role" asp-action="Index">Roles</a>
+                    @*}*@
+                    <div class="float-right">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <div class="dropdown">
+                                @await Component.InvokeAsync("LoginView")
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                    @* @if (User.IsInRole("Admin"))
+                        {*@
+                                    @Html.ActionLink("Category propeties", "CategoryProperties", "Products", null, new { @class = "dropdown-item" })
+                                    @Html.ActionLink("Product propeties", "ProductsProperties", "Products", null, new { @class = "dropdown-item" })
+                                    @*}*@
+                                    @Html.ActionLink("Settings", "Settings", "Account", null, new { @class = "dropdown-item" })
+                                    @Html.ActionLink("Logout", "Logout", "Account", null, new { @class = "dropdown-item" })
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <a class="navbar-brand" asp-controller="Account" asp-action="Login">Login</a>
+                            <a class="navbar-brand" asp-controller="Account" asp-action="Register">Registration</a>
+                        }
+                    </div>
                 </div>
-            </div>
         </nav>
     </header>
     <div class="container">
