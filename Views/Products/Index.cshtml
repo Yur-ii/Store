@@ -1,10 +1,47 @@
-﻿@{
+﻿@model List<Product>
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="row">
+    @if (Model != null)
+    {
+        @foreach (var m in Model)
+        {
+        <div class="col-sm-3 border border-primary text-center ml-3 mr-3 mt-3 mb-3">
+            <img style='width:80%; height:150px;' src="data:image/jpeg;base64,@(Convert.ToBase64String(m.Img))" />
+            <h3>@m.Name</h3>
+            <p>@m.Price</p>
+            @if (m.Avilable > 0)
+            {
+                <p> Available</p>
+            }
+            else
+            {
+                <p>Not available</p>
+            }
+        </div>
+        }
+    }
 </div>
 
-
+<style>
+    .col-sm-4{
+        border: 1px gray;
+    }
+    #Desc {
+        height: 62px;
+        overflow: hidden;
+    }
+        #Desc:after {
+            content: "";
+            text-align: right;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            height: 1.2em;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0), white 100%);
+            pointer-events: none;
+        }
+</style>
