@@ -82,8 +82,12 @@ namespace Store.Controllers
             return View(); 
         }
         [HttpPost]
-        public async Task<IActionResult> CreateSubCategory(SubCategory category)
+        public async Task<IActionResult> CreateSubCategory(SubCategory category, Dictionary<string, List<TwoParam>> charactesristicProduct = null)
         {
+            if (charactesristicProduct != null)
+            {
+                category.PatternСharacteristics = JsonSerializer.Serialize(charactesristicProduct);
+            }
             db.SubCategories.Add(category);
             await db.SaveChangesAsync();
             return RedirectToAction("CategoryProperties");
