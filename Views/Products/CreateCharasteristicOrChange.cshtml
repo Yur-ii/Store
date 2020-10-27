@@ -7,8 +7,17 @@
 <script src="@Url.Content("~/js/CharacteristicsTemplate.js")" type="text/javascript"></script>
 <div class="row justify-content-center align-items-center text-center">
     <form id="formCategory" method="post" asp-action="CreateCharasteristicOrChange" asp-controller="Products">
+        <div>
+            <input class="form-control" asp-for="Item1.SubCategoryName" placeholder="Category name" value="@Model.Item1.SubCategoryName" />
+        </div>
+        <br />
+        <select asp-for="Item1.CategoryId" asp-items="ViewBag.categories" class="form-control" ></select>
+        <br />
+        <div>
+            @Html.TextArea("Desc", Model.Item1.Desc, 5, 50, new { placeholder = "Category description", @class = "form-control" })
+        </div>
+        <br />
         <h3>Сharacteristic template</h3>
-        <input hidden value="@Model.Item1" />
         <div id="Сharacteristic">
             @if (Model.Item2 != null)
             {

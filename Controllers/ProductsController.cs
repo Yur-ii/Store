@@ -181,6 +181,8 @@ namespace Store.Controllers
             {
                 dict = JsonSerializer.Deserialize<Dictionary<string, List<TwoParam>>>(category.PatternСharacteristics);
             }
+            List<Category> categories = db.Categories.ToList();
+            ViewBag.categories = new SelectList(categories, "Id", "CategoryName");
             return View((category, dict));
         }
         [HttpPost]
