@@ -28,7 +28,8 @@ namespace Store.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            List<Product> product = db.Products.ToList();
+            return View(product);
         }
 
         public IActionResult Privacy()
