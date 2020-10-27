@@ -1,6 +1,6 @@
 ﻿@model Store.Models.Category
-<h3>Create category</h3>
-<div class="row justify-content-center align-items-center text-center">
+<div class="text-center">
+    <h3>Create category</h3>
     <form id="formCategory" method="post" asp-action="CreateCategory" asp-controller="Products">
         <div>
             <input class="form-control" asp-for="CategoryName" placeholder="Category name" />
@@ -11,3 +11,9 @@
         </div>
     </form>
 </div>
+<style>
+    form{
+        margin: 0 auto;
+        width: 70%;
+    }
+</style>
