@@ -1,6 +1,7 @@
 ﻿@model Store.Models.SubCategory
-<h3>Create subcategory</h3>
-<div class="row justify-content-center align-items-center text-center">
+<script src="~/js/CharacteristicsTemplate.js"></script>
+<div class="text-center">
+    <h3>Create subcategory</h3>
     <form id="formCategory" method="post" asp-action="CreateSubCategory" asp-controller="Products">
         <div>
             <input class="form-control" asp-for="SubCategoryName" placeholder="Category name" />
@@ -9,7 +10,11 @@
         <select asp-for="CategoryId" asp-items="ViewBag.categories" class="form-control"></select>
         <br />
         <div>
-            <input class="form-control" asp-for="Desc" placeholder="Description" />
+            @Html.TextArea("Desc", null, 5, 50, new { placeholder = "Category description", @class = "form-control" })
+        </div>
+        <br />
+        <div id="Сharacteristic">
+
         </div>
         <br />
         <div>
@@ -17,3 +22,52 @@
         </div>
     </form>
 </div>
+<br />
+<div class="text-center">
+    <button id="btnCreate" class="btn btn-primary col-2" onclick="CreateCategoryCharacteristic()">
+        Add category
+    </button>
+    <button id="btnCreate" class="btn btn-primary col-2" onclick="CreateSubcategorySettings(false)">
+        Add element
+    </button>
+</div>
+<style>
+    form{
+        margin: 0 auto;
+        width: 70%;
+    }
+</style>
+<script>
+    var countCategory = 0;
+    var countElementCharact = 0;
+    var checkEmpty = true;
+    var form = document.getElementsByTagName("form")[0];
+    form.addEventListener("submit", function (event) {
+        //check if categories not empty and not have same value, if not - prevent sumbit
+        if (countCategory > 0) {
+            for (let i = 0; i < countCategory; i++) {
+                if (document.getElementById(`[${i}]Cat`)) {
+                    let checkCat = document.forms["formCategory"][`[${i}]Cat`].value;
+                    console.log(checkCat + 123);
+                    if (checkCat == "") {
+                        event.preventDefault();
+                        let errorMes = document.getElementById("ErrorMessage");
+                        errorMes.innerHTML = "Category fields should not to be empty.";
+                    }
+                }
+                for (let j = 0; j < countCategory; j++) {
+                    if (i == j) continue;
+                    else {
+                        let checkCat = document.forms["formCategory"][`[${i}]Cat`].value;
+                        let compareCat = document.forms["formCategory"][`[${j}]Cat`].value;
+                        if (checkCat == compareCat) {
+                            let errorMes = document.getElementById("ErrorMessage");
+                            errorMes.innerHTML = "Category fields should not to be the same.";
+                            event.preventDefault();
+                        }
+                    }
+                }
+            }
+        }
+    }, false);
+</script>
