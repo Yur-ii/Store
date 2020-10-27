@@ -1,0 +1,33 @@
+﻿@model (List<Category>, List<SubCategory>)
+
+    <div id="nav" class="dropright">
+        @foreach (var c in Model.Item1)
+        {
+            <div id="nav2" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                @Html.ActionLink(c.CategoryName, "CategoryProperties", "Products", null, null)
+                <div id="nav3" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    @foreach (var s in Model.Item2)
+                    {
+                        if (c.Id == s.CategoryId)
+                        {
+                            @Html.ActionLink(@s.SubCategoryName, "CategoryProperties", "Products", null, new { @class = "dropdown-item" })
+                        }
+                    }
+                </div>
+            </div>
+          }
+</div>
+
+<style>
+
+
+#nav2 {
+    display: block;
+}
+</style>
+<script>
+$(function () {
+    $("#nav #nav2").hover(function () { $(this).children('#nav3').stop(false, true).fadeIn(300); },
+        function () { $(this).children('#nav3').stop(false, true).fadeOut(300); });
+});
+</script>
