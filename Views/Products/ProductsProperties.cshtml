@@ -1,10 +1,13 @@
 ﻿@model Store.ViewModels.ProductListViewModel
-    <a class="btn btn-light" asp-action="CreateProduct" asp-controller="Products">Add new product</a>
-    <form method="post" asp-action="ProductsProperties" asp-controller="Products">
-        <input name="name" class="form-control" placeholder="Name of product">
-        <select name="category" asp-items="Model.SubCategories"></select>
-        <input type="submit" value="Search" class="btn btn-default" />
-    </form>
+<a class="btn btn-light" asp-action="CreateProduct" asp-controller="Products">Add new product</a>
+<br />
+
+<form method="post" class="form-inline" asp-action="ProductsProperties" asp-controller="Products">
+    <input name="name" class="form-control" placeholder="Name of product">
+    <select name="category" asp-items="Model.SubCategories" class="form-control"></select>
+    <input type="submit" value="Search" class="btn btn-default" />
+</form>
+
 @if (Model.Products != null)
 {
 <table class="table table-striped">
@@ -36,3 +39,9 @@
     }
 </table>
 }
+<style>
+    form{
+    width: 40%;
+    margin: 0 auto;
+    }
+</style>
