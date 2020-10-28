@@ -28,6 +28,7 @@
                 this.id = `DelElement[${i}][${countForDeleteSubCategory}]`;
                 countForDeleteSubCategory++;
             });
+
             countForDeleteSubCategory = 0;
             $(`[id^="CatDiv[${i + 1}]["]`).each(function () {
                 this.id = `CatDiv[${i}][${countForDeleteSubCategory}]`;
@@ -44,6 +45,13 @@
                 this.id = `CatDiv[${i}]`;
             });
         }
+    }
+    else {
+        let countForDeleteSubCategory = 0;
+        $(`[id^="CatDiv[${countCategory - 2}]["]`).each(function () {
+            countForDeleteSubCategory++;
+        });
+        countElementCharact = countForDeleteSubCategory;
     }
     countCategory--;
 }
