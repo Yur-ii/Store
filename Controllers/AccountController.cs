@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Store.Models;
 using Store.ViewModels;
+using Store.Aditional_methods;
 
 namespace Store.Controllers
 {
@@ -59,7 +60,7 @@ namespace Store.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = new User { Email = model.Email, UserName = model.UserName, Image = ImageToByteArray(), DateOfBirth = new DateTime(model.YearOfBirth, (int)model.MonthOfBirth, model.DayOfBirth)};
+                User user = new User { Email = model.Email, UserName = model.UserName, Image = DefaultImg.UseDefaulImg(), DateOfBirth = new DateTime(model.YearOfBirth, (int)model.MonthOfBirth, model.DayOfBirth)};
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -103,18 +104,18 @@ namespace Store.Controllers
             await _userManager.UpdateAsync(user);
             return RedirectToAction("Settings");
         }
-        public byte[] ImageToByteArray()
-        {
-            string path = "wwwroot/Files/intro.jpg";
-            using (var img = new Bitmap(Image.FromFile(path)))
-            {
-                using (MemoryStream mStream = new MemoryStream())
-                {
-                    img.Save(mStream, img.RawFormat);
-                    return mStream.ToArray();
-                }
-            }
-        }
+        //public byte[] ImageToByteArray()
+        //{
+        //    string path = "wwwroot/Files/intro.jpg";
+        //    using (var img = new Bitmap(Image.FromFile(path)))
+        //    {
+        //        using (MemoryStream mStream = new MemoryStream())
+        //        {
+        //            img.Save(mStream, img.RawFormat);
+        //            return mStream.ToArray();
+        //        }
+        //    }
+        //}
         [AcceptVerbs("Get", "Post")]
         public async Task<IActionResult> CheckEmail(string email)
         {
