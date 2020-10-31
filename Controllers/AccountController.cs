@@ -104,18 +104,6 @@ namespace Store.Controllers
             await _userManager.UpdateAsync(user);
             return RedirectToAction("Settings");
         }
-        //public byte[] ImageToByteArray()
-        //{
-        //    string path = "wwwroot/Files/intro.jpg";
-        //    using (var img = new Bitmap(Image.FromFile(path)))
-        //    {
-        //        using (MemoryStream mStream = new MemoryStream())
-        //        {
-        //            img.Save(mStream, img.RawFormat);
-        //            return mStream.ToArray();
-        //        }
-        //    }
-        //}
         [AcceptVerbs("Get", "Post")]
         public async Task<IActionResult> CheckEmail(string email)
         {
