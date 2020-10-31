@@ -55,7 +55,7 @@ namespace Store.Controllers
             }
             if (!String.IsNullOrEmpty(name))
             {
-                product = db.Products.Where(p => p.Name == name);
+                product = db.Products.Where(p => p.Name.Contains(name));
             }
             ProductListViewModel products = new ProductListViewModel
             {
