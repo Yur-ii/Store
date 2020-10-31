@@ -31,12 +31,8 @@ namespace Store.Controllers
             List<Product> product = db.Products.ToList();
             return View(product);
         }
+        public IActionResult CategoryProperties() => View((db.Categories.ToList(), db.SubCategories.ToList())); 
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-        public IActionResult CategoryProperties() => View( db.SubCategories.ToList());
         
         public IActionResult ProductsProperties()
         {
@@ -85,13 +81,13 @@ namespace Store.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateSubCategory(SubCategory category, Dictionary<string, List<TwoParam>> charactesristicProduct = null)
         {
-            if (charactesristicProduct != null)
+            if (!charactesristicProduct.ContainsKey("__RequestVerificationToken"))
             {
                 category.PatternСharacteristics = JsonSerializer.Serialize(charactesristicProduct);
             }
             db.SubCategories.Add(category);
             await db.SaveChangesAsync();
-            return RedirectToAction("CategoryProperties");
+            return View();
         }
         public IActionResult CreateProduct()
         {
@@ -199,6 +195,16 @@ namespace Store.Controllers
             return RedirectToAction("CategoryProperties");
         }
         public async Task<IActionResult> DeleteCategory(int id)
+        {
+            Category category = db.Categories.FirstOrDefault(c => c.Id == id);
+            if (category != null)
+            {
+                db.Categories.Remove(category);
+                await db.SaveChangesAsync();
+            }
+            return RedirectToAction("CategoryProperties");
+        }
+        public async Task<IActionResult> DeleteSubCategory(int id)
         {
             SubCategory category = db.SubCategories.FirstOrDefault(c => c.Id == id);
             if (category != null)
