@@ -5,10 +5,10 @@
 <div class="">
     <h3>Catrgory list</h3>
     <br />
-    <ul>
+    <ul id="firstUl">
         @foreach (var c in Model.Item1)
         {
-        <li>
+        <li id="firstLi">
             <hr />
             <div class="form-inline">
                 <p class="col-5">@c.CategoryName</p>
@@ -24,7 +24,7 @@
                 </form>
             </div>
             <hr />
-            <ul>
+            <ul id="secondUl">
                 @foreach (var sc in Model.Item2)
                 {
                     if (c.Id == sc.CategoryId)
@@ -53,13 +53,19 @@
     p{
         margin: 0 10px;
     }
+    ul{
+        list-style: none;
+    }
     li{
         margin: 10px 10px;
+    }
+    #secondUl {
+        display:none;
     }
 </style>
 <script>
     $(function () {
-        $("#nav #nav2").hover(function () { $(this).children('#nav3').stop(false, true).fadeIn(300); },
-            function () { $(this).children('#nav3').stop(false, true).fadeOut(300); });
+        $("#firstUl li").hover(function () { $(this).children('#secondUl').stop(false, true).fadeIn(300); },
+            function () { $(this).children('#secondUl').stop(false, true).fadeOut(300); });
     });
 </script>
