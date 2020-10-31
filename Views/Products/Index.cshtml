@@ -9,7 +9,9 @@
         @foreach (var m in Model)
         {
         <div class="col-sm-2 border text-center cont">
+            @if (m.Img != null) {
             <img id="ProductImg" style='width:80%; height:150px;' src="data:image/jpeg;base64,@(Convert.ToBase64String(m.Img))" />
+            }
             <h7>@m.Name</h7>
             <p id="price">@m.Price $</p>
             @if (m.Avilable > 0)
