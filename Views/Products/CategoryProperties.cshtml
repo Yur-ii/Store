@@ -1,30 +1,65 @@
-﻿@model List<Store.Models.SubCategory>
+﻿@model (List<Category>,List<SubCategory>)
 <a class="btn btn-light" asp-action="CreateCategory" asp-controller="Products">Add new category</a>
 <a class="btn btn-light" asp-action="CreateSubCategory" asp-controller="Products" style="margin-left: 30px">Add new subcategory</a>
 <br />
-<div class="justify-content-center align-items-center text-center">
+<div class="">
     <h3>Catrgory list</h3>
     <br />
-    <table>
-        @foreach (var c in Model)
+    <ul>
+        @foreach (var c in Model.Item1)
         {
-        <tr>
-            <td>@c.SubCategoryName</td>
-            <td>
-                <form method="get" asp-action="CreateCharasteristicOrChange" asp-route-id="@c.Id">
+        <li>
+            <hr />
+            <div class="form-inline">
+                <p class="col-5">@c.CategoryName</p>
+                <form class="col-2" method="get" asp-action="EditCategory" asp-route-id="@c.Id" style="margin-left: 10px">
                     <button type="submit" class="btn btn-sm btn-danger">
                         Edit
                     </button>
                 </form>
-            </td>
-            <td>
-                <form method="post" asp-action="DeleteCategory" asp-route-id="@c.Id">
+                <form class="col-2" method="post" asp-action="DeleteCategory" asp-route-id="@c.Id" style="margin-left: 10px">
                     <button type="submit" class="btn btn-sm btn-danger">
                         Delete
                     </button>
                 </form>
-            </td>
-        </tr>
+            </div>
+            <hr />
+            <ul>
+                @foreach (var sc in Model.Item2)
+                {
+                    if (c.Id == sc.CategoryId)
+                    {
+                        <li class="form-inline">
+                            <p class="col-5">@sc.SubCategoryName</p>
+                            <form class="col-2" method="get" asp-action="CreateCharasteristicOrChange" asp-route-id="@sc.Id" style="margin-left: 10px">
+                                <button type="submit" class="btn btn-sm btn-danger">
+                                    Edit
+                                </button>
+                            </form>
+                            <form class="col-2" method="post" asp-action="DeleteSubCategory" asp-route-id="@sc.Id" style="margin-left: 10px">
+                                <button type="submit" class="btn btn-sm btn-danger">
+                                    Delete
+                                </button>
+                            </form>
+                        </li>
+                    }
+                }
+            </ul>
+        </li>
         }
-    </table>
+    </ul>
 </div>
+<style>
+    p{
+        margin: 0 10px;
+    }
+    li{
+        margin: 10px 10px;
+    }
+</style>
+<script>
+    $(function () {
+        $("#nav #nav2").hover(function () { $(this).children('#nav3').stop(false, true).fadeIn(300); },
+            function () { $(this).children('#nav3').stop(false, true).fadeOut(300); });
+    });
+</script>
