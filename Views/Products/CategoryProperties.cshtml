@@ -1,4 +1,7 @@
 ﻿@model (List<Category>,List<SubCategory>)
+@{ 
+    int count = 0;
+}
 <a class="btn btn-light" asp-action="CreateCategory" asp-controller="Products">Add new category</a>
 <a class="btn btn-light" asp-action="CreateSubCategory" asp-controller="Products" style="margin-left: 30px">Add new subcategory</a>
 <br />
@@ -59,13 +62,20 @@
     li{
         margin: 10px 10px;
     }
-    #secondUl {
-        display:none;
+    #secondUl{
+        display: none;
+    }
+    #firstLi:hover{
+        background-color: aqua;
     }
 </style>
 <script>
-    $(function () {
-        $("#firstUl li").hover(function () { $(this).children('#secondUl').stop(false, true).fadeIn(300); },
-            function () { $(this).children('#secondUl').stop(false, true).fadeOut(300); });
+    $("#firstUl li").click(function () {
+        if ($(this).children('#secondUl').css('display') == 'none') {
+            $(this).children('#secondUl').stop(false, true).fadeIn(100);
+        }
+        else {
+            $(this).children('#secondUl').stop(false, true).fadeOut(100);
+        }
     });
 </script>
