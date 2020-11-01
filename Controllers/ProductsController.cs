@@ -116,7 +116,7 @@ namespace Store.Controllers
             product.IsFavorite = true;
             db.Products.Add(product);
             await db.SaveChangesAsync();
-            return RedirectToAction("CategoryProperties");
+            return RedirectToAction("ProductsProperties");
         }
         public IActionResult EditProduct(int id = -1)
         {
